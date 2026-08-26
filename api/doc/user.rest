@@ -1,2 +1,2 @@
 ### consulta de usuario
-GET http://wwwsistemamenu/producto
+GET http://wwwsistemamenu/users

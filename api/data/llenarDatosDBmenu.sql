@@ -1,4 +1,6 @@
-INSERT INTO clientes (ci, nombre, apellidos, direccion, telefono) VALUES
+
+INSERT INTO CLIENTES
+(ci, nombre, apellidos, direccion, telefono) VALUES
 ('1234567', 'Juan', 'Pérez Gómez', 'Calle Flores 123', '71234567'),
 ('2345678', 'María', 'Rodríguez López', 'Av. Las Américas 456', '72345678'),
 ('3456789', 'Carlos', 'Sánchez Martínez', 'Zona Central, Calle 4', '73456789'),
@@ -21,29 +23,40 @@ INSERT INTO clientes (ci, nombre, apellidos, direccion, telefono) VALUES
 ('1020304', 'Gabriela', 'Medina Herrera', 'Calle Bolívar 444', '60203040');
 
 
-INSERT INTO EMPLEADOS (ci, nombre, apellidos) VALUES
-('5432109', 'Fernando', 'Mendoza Delgado'),
-('6543210', 'Patricia', 'Luna Céspedes'),
-('7654321', 'Roberto', 'Vaca Justiniano'),
-('8765432', 'Daniela', 'Ribeiro Justiniano'),
-('9876543', 'Gustavo', 'Paz Soldán'),
-('1098765', 'Natalia', 'Siles Zuazo'),
-('2109876', 'Javier', 'Prada Melgar'),
-('3210987', 'Claudia', 'Arteaga Aguilera'),
-('4321098', 'Mauricio', 'Suárez Landívar'),
-('5432108', 'Verónica', 'Antelo Hurtado'),
-('6543217', 'Sergio', 'Pinto Saucedo'),
-('7654326', 'Paola', 'Roca Balcázar'),
-('8765435', 'Marcelo', 'Ortiz Mercado'),
-('9876544', 'Vanessa', 'Chávez Villagómez'),
-('1098763', 'Hugo', 'Peña Montaño'),
-('2109872', 'Tatiana', 'Ríos Justiniano'),
-('3210981', 'Álvaro', 'Camacho Terrazas'),
-('4321090', 'Liliana', 'Vargas Escalante'),
-('5432099', 'René', 'Gutiérrez Claros'),
-('6543108', 'Diana', 'Zeballos Villegas');
+-- =========================================================
+-- INSERTAR EMPLEADOS
+-- =========================================================
 
-INSERT INTO PRODUCTOS (codBarras, descripcion, stock, precio_unitario) VALUES
+INSERT INTO EMPLEADOS
+(ci, nombre, apellidos, cargo) VALUES
+('5432109', 'Fernando', 'Mendoza Delgado', 'Mesero'),
+('6543210', 'Patricia', 'Luna Céspedes', 'Cajero'),
+('7654321', 'Roberto', 'Vaca Justiniano', 'Chef'),
+('8765432', 'Daniela', 'Ribeiro Justiniano', 'Mesero'),
+('9876543', 'Gustavo', 'Paz Soldán', 'Administrador'),
+('1098765', 'Natalia', 'Siles Zuazo', 'Cajero'),
+('2109876', 'Javier', 'Prada Melgar', 'Mesero'),
+('3210987', 'Claudia', 'Arteaga Aguilera', 'Chef'),
+('4321098', 'Mauricio', 'Suárez Landívar', 'Mesero'),
+('5432108', 'Verónica', 'Antelo Hurtado', 'Cajero'),
+('6543217', 'Sergio', 'Pinto Saucedo', 'Mesero'),
+('7654326', 'Paola', 'Roca Balcázar', 'Chef'),
+('8765435', 'Marcelo', 'Ortiz Mercado', 'Mesero'),
+('9876544', 'Vanessa', 'Chávez Villagómez', 'Cajero'),
+('1098763', 'Hugo', 'Peña Montaño', 'Mesero'),
+('2109872', 'Tatiana', 'Ríos Justiniano', 'Chef'),
+('3210981', 'Álvaro', 'Camacho Terrazas', 'Mesero'),
+('4321090', 'Liliana', 'Vargas Escalante', 'Cajero'),
+('5432099', 'René', 'Gutiérrez Claros', 'Chef'),
+('6543108', 'Diana', 'Zeballos Villegas', 'Mesero');
+
+
+-- =========================================================
+-- INSERTAR PRODUCTOS
+-- =========================================================
+
+INSERT INTO PRODUCTOS
+(cod_barras, descripcion, stock, precio_unitario) VALUES
 ('750105531001', 'Arroz Integral 1kg', 50, 12.50),
 ('750105531002', 'Fideos Tallarín 500g', 120, 5.80),
 ('750105531003', 'Aceite de Girasol 1L', 45, 18.20),
@@ -65,11 +78,33 @@ INSERT INTO PRODUCTOS (codBarras, descripcion, stock, precio_unitario) VALUES
 ('750105531019', 'Refresco de Cola 2L', 100, 11.00),
 ('750105531020', 'Agua Mineral sin Gas 2L', 140, 5.00);
 
-select * FROM clientes;
-SELECT * FROM empleados;
-SELECT * FROM productos;
 
-INSERT INTO PEDIDOS (cod_cliente, fecha_compra, cantidad, cod_empleado) VALUES
+-- =========================================================
+-- INSERTAR USUARIOS
+-- =========================================================
+
+INSERT INTO USUARIOS(id, username, password_hash, estado, cod_empleado) VALUES
+(1, 'fernando', '$2y$10$abc123hash', 1, 1),
+(2, 'patricia', '$2y$10$def456hash', 1, 2),
+(3, 'roberto', '$2y$10$ghi789hash', 1, 3),
+(4, 'daniela', '$2y$10$jkl012hash', 1, 4),
+(5, 'gustavo', '$2y$10$mno345hash', 1, 5),
+(6, 'natalia', '$2y$10$pqr678hash', 1, 6),
+(7, 'javier', '$2y$10$stu901hash', 1, 7),
+(8, 'claudia', '$2y$10$vwx234hash', 1, 8),
+(9, 'mauricio', '$2y$10$yz5678hash', 1, 9),
+(10, 'veronica', '$2y$10$aaa111hash', 1, 10);
+
+SELECT * FROM CLIENTES;
+SELECT * FROM EMPLEADOS;
+SELECT * FROM PRODUCTOS;
+SELECT * FROM USUARIOS;
+-- =========================================================
+-- INSERTAR PEDIDOS
+-- =========================================================
+
+INSERT INTO PEDIDOS
+(cod_cliente, fecha_compra, cantidad, cod_empleado) VALUES
 (1, '2026-05-10 10:30:00', 3, 1),
 (2, '2026-05-11 14:15:00', 5, 2),
 (3, '2026-05-12 09:00:00', 2, 3),
@@ -82,20 +117,30 @@ INSERT INTO PEDIDOS (cod_cliente, fecha_compra, cantidad, cod_empleado) VALUES
 (10, '2026-05-17 12:50:00', 7, 10);
 
 
-INSERT INTO PEDIDO_PRODUCTOS (cod_producto, cod_pedido, cantidad, precio_unitario, descuento) VALUES
-(1, 1, 3, 12.50, 0.00),   -- 3 Arroz para el Pedido 1
-(4, 2, 5, 7.50, 2.00),    -- 5 Leche para el Pedido 2 (con descuento)
-(6, 3, 2, 28.90, 0.00),   -- 2 Café para el Pedido 3
-(10, 4, 1, 24.50, 1.50),  -- 1 Champú para el Pedido 4
-(3, 5, 4, 18.20, 0.00),   -- 4 Aceite para el Pedido 5
-(2, 6, 10, 5.80, 5.00),   -- 10 Fideos para el Pedido 6
-(19, 7, 2, 11.00, 0.00),  -- 2 Refrescos para el Pedido 7
-(11, 8, 6, 8.50, 0.00),   -- 6 Papel Higiénico para el Pedido 8
-(13, 9, 3, 9.80, 1.00),   -- 3 Atún para el Pedido 9
-(20, 10, 7, 5.00, 0.00);  -- 7 Agua para el Pedido 10
+-- =========================================================
+-- INSERTAR DETALLE DE PEDIDOS
+-- =========================================================
+
+INSERT INTO PEDIDO_PRODUCTOS
+(cod_producto, cod_pedido, cantidad, precio_unitario, descuento) VALUES
+(1, 1, 3, 12.50, 0.00),
+(4, 2, 5, 7.50, 2.00),
+(6, 3, 2, 28.90, 0.00),
+(10, 4, 1, 24.50, 1.50),
+(3, 5, 4, 18.20, 0.00),
+(2, 6, 10, 5.80, 5.00),
+(19, 7, 2, 11.00, 0.00),
+(11, 8, 6, 8.50, 0.00),
+(13, 9, 3, 9.80, 1.00),
+(20, 10, 7, 5.00, 0.00);
 
 
-INSERT INTO EMPLEADO_PEDIDOS (cod_pedido, cod_empleado, fecha) VALUES
+-- =========================================================
+-- INSERTAR EMPLEADO_PEDIDOS
+-- =========================================================
+
+INSERT INTO EMPLEADO_PEDIDOS
+(cod_pedido, cod_empleado, fecha) VALUES
 (1, 1, '2026-05-10'),
 (2, 2, '2026-05-11'),
 (3, 3, '2026-05-12'),
@@ -107,7 +152,6 @@ INSERT INTO EMPLEADO_PEDIDOS (cod_pedido, cod_empleado, fecha) VALUES
 (9, 9, '2026-05-17'),
 (10, 10, '2026-05-17');
 
-SELECT * FROM pedidos;
-SELECT * FROM pedido_productos;
-SELECT * from empleado_pedidos;
-
+SELECT * FROM PEDIDOS;
+SELECT * FROM PEDIDO_PRODUCTOS;
+SELECT * FROM EMPLEADO_PEDIDOS;

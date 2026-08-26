@@ -2,77 +2,153 @@ DROP DATABASE IF EXISTS dbmenu;
 CREATE DATABASE dbmenu;
 USE dbmenu;
 
--- creamos la tabla de cliente
-CREATE TABLE CLIENTES(
- id int not null PRIMARY KEY auto_increment,
- ci VARCHAR(20) not null,
- nombre VARCHAR(50) not NULL,
- apellidos varchar(50) not null,
- direccion varchar(250),
- telefono VARCHAR(15)
-)ENGINE=InnoDB;
 
--- crear tabla de empleado
-CREATE TABLE EMPLEADOS(
-id int not null PRIMARY key auto_increment,
-ci VARCHAR(20) not null,
-nombre VARCHAR(50) not null,
-apellidos varchar(50) not NULL
-)ENGINE=InnoDB;
+-- =========================================================
+-- 1. TABLA CLIENTES
+-- =========================================================
 
--- NUEVA: tabla de usuarios vinculada a empleados para el control de acceso
-CREATE TABLE USUARIOS(
-id int not null PRIMARY KEY auto_increment,
-username varchar(50) not null UNIQUE,
-password_hash varchar(255) not null,
-estado boolean default true,
-cod_empleado int not null,
-FOREIGN KEY(cod_empleado) REFERENCES empleados(id)
-)ENGINE=InnoDB;
+CREATE TABLE CLIENTES (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ci VARCHAR(20) NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    direccion VARCHAR(250),
+    telefono VARCHAR(15) NOT NULL
+) ENGINE=InnoDB;
 
--- crear tabla del producto (Modificada con control de registro)
-CREATE TABLE PRODUCTOS(
-id int not null PRIMARY KEY auto_increment,
-codBarras varchar(100) not null,
-descripcion varchar(100) not NULL,
-stock INT not NULL CHECK(stock>=0),
-precio_unitario DECIMAL(10,2) not null,
-creado_por int, -- Usuario que registró el producto
-fecha_registro datetime default now(),
-FOREIGN KEY(creado_por) REFERENCES usuarios(id)
-)ENGINE=InnoDB;
 
--- crear la tabla pedidos (Modificada con control de registro)
-CREATE TABLE PEDIDOS(
-id int not null PRIMARY key auto_increment,
-cod_cliente int not null,
-fecha_compra datetime not null,
-cantidad int not null,
-cod_empleado int not null,
-creado_por int, -- Usuario que registró la venta/pedido
-FOREIGN KEY(cod_cliente) REFERENCES clientes(id),
-FOREIGN KEY(cod_empleado) REFERENCES empleados(id),
-FOREIGN KEY(creado_por) REFERENCES usuarios(id)
-)ENGINE=InnoDB;
+-- =========================================================
+-- 2. TABLA EMPLEADOS
+-- =========================================================
 
--- creamos la tabla relacion pedidoProducto
-CREATE TABLE PEDIDO_PRODUCTOS(
-Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-cod_producto int not null,
-cod_pedido int not null,
-cantidad int not null,
-precio_unitario DECIMAL(10,2) not null,
-descuento DECIMAL(10,2) DEFAULT(0.0),
-FOREIGN KEY(cod_producto) REFERENCES productos(id),
-FOREIGN KEY(cod_pedido) REFERENCES pedidos(id)
-)ENGINE=InnoDB;
+CREATE TABLE EMPLEADOS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ci VARCHAR(20) NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(50) NOT NULL,
+    cargo VARCHAR(50) NOT NULL
+) ENGINE=InnoDB;
 
--- crear tabla relacional empleado-pedido
-CREATE TABLE EMPLEADO_PEDIDOS(
-cod_pedido int not null,
-cod_empleado int not null,
-fecha date not null DEFAULT(NOW()),
-PRIMARY KEY(cod_pedido,cod_empleado),
-FOREIGN KEY(cod_pedido) REFERENCES pedidos(id),
-FOREIGN KEY(cod_empleado) REFERENCES empleados(id)
-)ENGINE=InnoDB;
+
+-- =========================================================
+-- 3. TABLA PRODUCTOS
+-- =========================================================
+
+CREATE TABLE PRODUCTOS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod_barras VARCHAR(100) NOT NULL UNIQUE,
+    descripcion VARCHAR(100) NOT NULL,
+    stock INT NOT NULL DEFAULT 0,
+    precio_unitario DECIMAL(10,2) NOT NULL,
+
+    CHECK (stock >= 0),
+    CHECK (precio_unitario > 0)
+) ENGINE=InnoDB;
+
+
+-- =========================================================
+-- 4. TABLA USUARIOS
+-- Relación: USUARIOS -> EMPLEADOS
+-- =========================================================
+
+CREATE TABLE USUARIOS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    estado TINYINT(1) NOT NULL DEFAULT 1,
+    cod_empleado INT NOT NULL,
+
+    CONSTRAINT fk_usuario_empleado
+        FOREIGN KEY (cod_empleado)
+        REFERENCES EMPLEADOS(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+
+-- =========================================================
+-- 5. TABLA PEDIDOS
+-- Relaciones: PEDIDOS -> CLIENTES
+--             PEDIDOS -> EMPLEADOS
+-- =========================================================
+
+CREATE TABLE PEDIDOS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod_cliente INT NOT NULL,
+    fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    cantidad INT NOT NULL,
+    cod_empleado INT NOT NULL,
+
+    CHECK (cantidad > 0),
+
+    CONSTRAINT fk_pedido_cliente
+        FOREIGN KEY (cod_cliente)
+        REFERENCES CLIENTES(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_pedido_empleado
+        FOREIGN KEY (cod_empleado)
+        REFERENCES EMPLEADOS(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+
+-- =========================================================
+-- 6. TABLA PEDIDO_PRODUCTOS
+-- Relaciones: PEDIDO_PRODUCTOS -> PRODUCTOS
+--             PEDIDO_PRODUCTOS -> PEDIDOS
+-- =========================================================
+
+CREATE TABLE PEDIDO_PRODUCTOS (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod_producto INT NOT NULL,
+    cod_pedido INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10,2) NOT NULL,
+    descuento DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+
+    CHECK (cantidad > 0),
+    CHECK (precio_unitario > 0),
+    CHECK (descuento >= 0),
+
+    CONSTRAINT fk_pedido_producto_producto
+        FOREIGN KEY (cod_producto)
+        REFERENCES PRODUCTOS(id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT fk_pedido_producto_pedido
+        FOREIGN KEY (cod_pedido)
+        REFERENCES PEDIDOS(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+-- =========================================================
+-- 7. TABLA EMPLEADO_PEDIDOS
+-- Relación muchos a muchos entre EMPLEADOS y PEDIDOS
+-- =========================================================
+
+CREATE TABLE EMPLEADO_PEDIDOS (
+    cod_pedido INT NOT NULL,
+    cod_empleado INT NOT NULL,
+    fecha DATE NOT NULL DEFAULT (CURRENT_DATE),
+
+    PRIMARY KEY (cod_pedido, cod_empleado),
+
+    CONSTRAINT fk_empleado_pedido_pedido
+        FOREIGN KEY (cod_pedido)
+        REFERENCES PEDIDOS(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_empleado_pedido_empleado
+        FOREIGN KEY (cod_empleado)
+        REFERENCES EMPLEADOS(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
