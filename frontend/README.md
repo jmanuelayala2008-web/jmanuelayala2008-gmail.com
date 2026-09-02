@@ -1,5 +1,6 @@
 ## Sistema desarrollado en clase
-## backendSexto2026 en git
-
+## jmanuelayala2008-gmail.com en git
+## Desarrollado por
+## manuel ayala
 ## registro en clase 
  -Registro de personal
