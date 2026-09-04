@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/config.php";
-class ConexionPDO
+class conexionPDO
 {
     private static ?PDO $cnn = null;
     public static function connect():PDO

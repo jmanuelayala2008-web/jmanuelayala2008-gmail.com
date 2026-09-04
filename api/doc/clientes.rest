@@ -1,2 +1,4 @@
 ### consulta de clientes
-GET http://wwwsistemamenu/clientes
+GET http://www.apisidme/CLIENTES 
+
+    

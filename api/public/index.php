@@ -20,7 +20,7 @@ $route->add('PUT','/productos/{id}','ProductoController@actualizar');
 $route->add('POST','/productos','ProductoController@add');
 $route->add('DELETE','/productos/{id}','ProductoController@eliminar');
 //clientes
-$route->add('GET','/clientes','ClientesController@getAll');
+$route->add('GET','/CLIENTES','ClientesController@getAll');
 
 
 

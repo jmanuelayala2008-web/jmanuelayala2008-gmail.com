@@ -1,8 +1,8 @@
 ### consulta de usuario
-GET http://wwwsistemamenu/productos
+GET http://www.apisidme/productos
 
 ### modificar Producto
-PUT http://wwwsistemamenu/productos/1
+PUT http://www.apisidme/productos/1
 
 {
     "codBarras":"750105521001",
@@ -14,7 +14,7 @@ PUT http://wwwsistemamenu/productos/1
 
 
 ### adicionar producto 
-POST http://wwwsistemamenu/productos
+POST http://www.apisidme/productos
 
 { 
     "codBarras":"750105531021",
@@ -24,4 +24,4 @@ POST http://wwwsistemamenu/productos
     "fecha_registro":"2026-06-12"
 }
 ### eliminar producto
-DELETE http://wwwsistemamenu/productos/1
+DELETE http://www.apisidme/productos/1

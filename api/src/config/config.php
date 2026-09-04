@@ -1,8 +1,7 @@
 <?php
 $path=dirname(__DIR__,2).'/.env';
-if(!file_exists($path))
-{
-    $path=dirname(__DIR__,2).'/public/.env';
+if(!file_exists($path)){
+    die("Archivo de configuracion no encontrado");
 }
 $config=parse_ini_file($path);
 define("HOST",$config['DB_HOST']);

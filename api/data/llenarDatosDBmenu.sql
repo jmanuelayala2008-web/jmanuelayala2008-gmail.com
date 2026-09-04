@@ -90,9 +90,9 @@ VALUES
 (19, 'Rene', 'rene123', 1, 19),
 (20, 'Diana', 'diana123', 1, 20);
 
-select * FROM clientes;
-SELECT * FROM empleados;
-SELECT * FROM productos;
+select * FROM CLIENTES;
+SELECT * FROM EMPLEADOS;
+SELECT * FROM PRODUCTOS;
 
 INSERT INTO PEDIDOS (cod_cliente, fecha_compra, cantidad, cod_empleado) VALUES
 (1, '2026-05-10 10:30:00', 3, 1),
@@ -145,6 +145,6 @@ ALTER TABLE USUARIOS
 	INSERT INTO USUARIOS(username,email,password_hash_cod_empleado)
 	values('Maria','maria@gmail.com','maria123',2);
 	
-SELECT * FROM pedidos;
-SELECT * FROM pedido_productos;
-SELECT * from empleado_pedidos;
+SELECT * FROM PEDIDOS;
+SELECT * FROM PEDIDO_PRODUCTOS;
+SELECT * from EMPLEADO_PEDIDOS;
