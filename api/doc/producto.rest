@@ -24,4 +24,4 @@ POST http://www.apisidme/productos
     "fecha_registro":"2026-06-12"
 }
 ### eliminar producto
-DELETE http://www.apisidme/productos/1
+DELETE http://www.apisidme/productos/41

@@ -5,7 +5,7 @@ class Productos
     //Mostrar Producto
     public static function all() 
     {
-        $sql="SELECT * FROM productos";
+        $sql="SELECT * FROM PRODUCTOS";
         return ConexionPDO::query($sql);
     }
     //Actualizar producto
@@ -25,7 +25,7 @@ class Productos
             }
         $stringCampos=implode(",",$campos);
         //preparamos la consulta
-        $sql="UPDATE productos SET $stringCampos WHERE id=:id";
+        $sql="UPDATE PRODUCTOS SET $stringCampos WHERE id=:id";
         $valores[':id']=$id;
         $result = ConexionPDO::execute($sql, $valores,false);
         //$sql = "SELECT * FROM productos";
@@ -64,13 +64,13 @@ class Productos
         $stringCampos=implode(",",$campos);
         $stringParametros=implode(",",$parametros);
         //preparamos la consulta
-        $sql="INSERT INTO productos($stringCampos) VALUES ($stringParametros)";
+        $sql="INSERT INTO PRODUCTOS($stringCampos) VALUES ($stringParametros)";
         $result = ConexionPDO::execute($sql, $valores,true);
         return $result;
     }
     public static function delete($id)
     {
-        $sql="DELETE FROM productos WHERE id=:id";
+        $sql="DELETE FROM PRODUCTOS WHERE id=:id";
         $valores=[':id'=>$id];
         $result=ConexionPDO::execute($sql,$valores,false);
         return $result;
