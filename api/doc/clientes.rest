@@ -1,0 +1,29 @@
+### consulta de clientes
+GET http://www.apisidme/CLIENTES
+
+### adicionar cliente
+POST http://www.apisidme/CLIENTES
+Content-Type: application/json
+
+{
+    "ci": "1112223",
+    "nombre": "Andrea",
+    "apellidos": "Mamani Flores",
+    "direccion": "Calle Sucre 123",
+    "telefono": "70111222"
+}
+
+### modificar cliente
+PUT http://www.apisidme/CLIENTES/1
+Content-Type: application/json
+
+{
+    "ci": "1234567",
+    "nombre": "Juan Carlos",
+    "apellidos": "Perez Gomez",
+    "direccion": "Calle Flores 456",
+    "telefono": "71234567"
+}
+
+### eliminar cliente
+DELETE http://www.apisidme/CLIENTES/81

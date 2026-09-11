@@ -1,0 +1,27 @@
+### consulta de usuario
+GET http://www.apisidme/productos
+
+### modificar Producto
+PUT http://www.apisidme/productos/1
+
+{
+    "codBarras":"750105521001",
+    "descripcion":"Arroz integral 2kg",
+    "stock":85,
+    "precio_unitario":15,
+    "fecha_registro":"2026-06-12"
+}
+
+
+### adicionar producto 
+POST http://www.apisidme/productos
+
+{ 
+    "codBarras":"750105531021",
+    "descripcion":"azucar 3kg",
+    "stock":85,
+    "precio_unitario":15,
+    "fecha_registro":"2026-06-12"
+}
+### eliminar producto
+DELETE http://www.apisidme/productos/41

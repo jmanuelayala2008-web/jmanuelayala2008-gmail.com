@@ -1,0 +1,3 @@
+# Credenciales locales: nunca deben subirse al repositorio.
+api/.env
+api/public/.env

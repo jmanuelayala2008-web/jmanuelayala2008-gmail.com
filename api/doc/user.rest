@@ -1,0 +1,27 @@
+### consulta de usuario
+GET http://www.apisidme/users
+
+### adicionar usuario
+POST http://www.apisidme/users
+Content-Type: application/json
+
+{
+    "username": "nuevo_usuario",
+    "password_hash": "clave_segura",
+    "estado": 1,
+    "cod_empleado": 1
+}
+
+### modificar usuario
+PUT http://www.apisidme/users/2
+Content-Type: application/json
+
+{
+    "username": "fernando_actugbgr",
+    "password_hash": "nurgbgrbe",
+    "estado": 1,
+    "cod_empleado": 1
+}
+
+### eliminar usuario
+DELETE http://www.apisidme/users/21
