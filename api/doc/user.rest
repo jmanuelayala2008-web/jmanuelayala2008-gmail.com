@@ -1,8 +1,8 @@
 ### consulta de usuario
-GET http://www.apisidme/users
+GET http://api.sistemamenu/users
 
 ### adicionar usuario
-POST http://www.apisidme/users
+POST http://api.sistemamenu/users
 Content-Type: application/json
 
 {
@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### modificar usuario
-PUT http://www.apisidme/users/2
+PUT http://api.sistemamenu/users/2
 Content-Type: application/json
 
 {
@@ -24,4 +24,4 @@ Content-Type: application/json
 }
 
 ### eliminar usuario
-DELETE http://www.apisidme/users/21
+DELETE http://api.sistemamenu/users/21

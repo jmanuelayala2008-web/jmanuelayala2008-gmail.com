@@ -1,4 +1,3 @@
-
 INSERT INTO CLIENTES (ci, nombre, apellidos, direccion, telefono) VALUES
 ('1234567', 'Juan', 'Pérez Gómez', 'Calle Flores 123', '71234567'),
 ('2345678', 'María', 'Rodríguez López', 'Av. Las Américas 456', '72345678'),
@@ -66,9 +65,7 @@ INSERT INTO PRODUCTOS (codBarras, descripcion, stock, precio_unitario) VALUES
 ('750105531019', 'Refresco de Cola 2L', 100, 11.00),
 ('750105531020', 'Agua Mineral sin Gas 2L', 140, 5.00);
  
-INSERT INTO USUARIOS
-(id, username, password_hash, estado, cod_empleado)
-VALUES
+INSERT INTO USUARIOS(id, username, password_hash, estado, cod_empleado)VALUES
 (1,  'Fernando', 'fernando123', 1, 1),
 (2,  'Patricia', 'patricia123', 1, 2),
 (3,  'Roberto', 'roberto123', 1, 3),
@@ -90,9 +87,10 @@ VALUES
 (19, 'Rene', 'rene123', 1, 19),
 (20, 'Diana', 'diana123', 1, 20);
 
-select * FROM CLIENTES;
-SELECT * FROM EMPLEADOS;
-SELECT * FROM PRODUCTOS;
+select * FROM clientes;
+SELECT * FROM empleados;
+SELECT * FROM productos;
+SELECT * FROM USUARIOS;
 
 INSERT INTO PEDIDOS (cod_cliente, fecha_compra, cantidad, cod_empleado) VALUES
 (1, '2026-05-10 10:30:00', 3, 1),
@@ -132,19 +130,6 @@ INSERT INTO EMPLEADO_PEDIDOS (cod_pedido, cod_empleado, fecha) VALUES
 (9, 9, '2026-05-17'),
 (10, 10, '2026-05-17');
 
-ALTER TABLE USUARIOS 
-  ADD email VARCHAR(50);
-	
-ALTER TABLE USUARIOS 
-  MODIFY email VARCHAR(50) NOT NULL;
-	
-	 
-	INSERT INTO USUARIOS(username,email,password_hash_cod_empleado)
-	values('Roberto','Roberto@gmail.com','robert123',1);
-	
-	INSERT INTO USUARIOS(username,email,password_hash_cod_empleado)
-	values('Maria','maria@gmail.com','maria123',2);
-	
-SELECT * FROM PEDIDOS;
-SELECT * FROM PEDIDO_PRODUCTOS;
-SELECT * from EMPLEADO_PEDIDOS;
+SELECT * FROM pedidos;
+SELECT * FROM pedido_productos;
+SELECT * from empleado_pedidos;

@@ -1,8 +1,8 @@
 ### consulta de clientes
-GET http://www.apisidme/CLIENTES
+GET http://api.sistemamenu/CLIENTES
 
 ### adicionar cliente
-POST http://www.apisidme/CLIENTES
+POST http://api.sistemamenu/CLIENTES
 Content-Type: application/json
 
 {
@@ -12,9 +12,8 @@ Content-Type: application/json
     "direccion": "Calle Sucre 123",
     "telefono": "70111222"
 }
-
 ### modificar cliente
-PUT http://www.apisidme/CLIENTES/1
+PUT http://api.sistemamenu/CLIENTES/1
 Content-Type: application/json
 
 {
@@ -26,4 +25,4 @@ Content-Type: application/json
 }
 
 ### eliminar cliente
-DELETE http://www.apisidme/CLIENTES/81
+DELETE http://api.sistemamenu/CLIENTES/81

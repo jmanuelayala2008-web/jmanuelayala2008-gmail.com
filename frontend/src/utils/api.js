@@ -1,14 +1,14 @@
-const API_URL = 'http://api.sistemamenu.com/';
+const API_URL = window.SISTEMA_MENU_A/www.apiPI_URL || 'http:/sidme.com/';
 
 export const api={
     //funcion para obtener data de la api
     get: async (endpoint) =>{
         try{
-            const responce = await fetch(`${API_URL}${endpoint}`);
-            if(!Response.ok) {
-                throw new Error(`error! status: ${response.status}` );
+            const response = await fetch(`${API_URL}${endpoint}`);
+            if(!response.ok) {
+                throw new Error(`Error: ${response.status}` );
             }
-            return await Response.json();
+            return await response.json();
         }catch (error) {
             console.error('Error al obtener data:',error);
             throw error;
