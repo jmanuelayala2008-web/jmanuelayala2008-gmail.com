@@ -1,6 +1,7 @@
 // Host declarado para el backend en la configuración local de Apache.
 // Puede reemplazarse antes de main.js definiendo window.SISTEMA_MENU_API_URL.
-const API_URL = new URL(window.SISTEMA_MENU_API_URL || 'http://api.sistemamenu/');
+//const API_URL = new URL(window.SISTEMA_MENU_API_URL || 'http://api.sistemamenu/');
+const API_URL ='https://jmanuelayala2008-gmail-com-2.onrender.com';
 
 function sessionHeaders(headers = {}) {
     const sessionId = sessionStorage.getItem('sistemamenuSessionId')
