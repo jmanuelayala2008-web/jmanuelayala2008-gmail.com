@@ -2,8 +2,17 @@
 include_once __DIR__. "/../config/conexionDB.php";
 
 class Users {
+    public static function findByUsername($username)
+    {
+        $rows = ConexionPDO::query(
+            'SELECT u.id, u.username, u.password_hash, u.estado, u.cod_empleado, e.nombre AS employee_nombre, e.apellidos AS employee_apellidos FROM USUARIOS u LEFT JOIN EMPLEADOS e ON e.id = u.cod_empleado WHERE u.username = :username LIMIT 1',
+            [':username' => $username]
+        );
+        return $rows[0] ?? null;
+    }
+
     public static function all() {
-        $sql="SELECT * FROM USUARIOS";
+        $sql="SELECT id, username, estado, cod_empleado FROM USUARIOS";
        return ConexionPDO::query($sql);
     }
 

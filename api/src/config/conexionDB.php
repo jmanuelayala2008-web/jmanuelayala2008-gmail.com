@@ -13,8 +13,9 @@ class conexionPDO
         ];
         try{
             self::$cnn=new PDO($pdo, USERNAME,PASSWORD,$options);
-            }catch(\PDOExeption $error){
-                die("ERROR ".$error->getMessage());
+            }catch(\PDOException $error){
+                error_log("Error de conexión MySQL: ".$error->getMessage());
+                throw $error;
             }
             return self::$cnn;
     }
@@ -26,11 +27,12 @@ class conexionPDO
             $stmt->execute($param);
             return $stmt->fetchAll();//["ok"=> $sql];
         } catch (Exception $e){
-            return ["error" => $e->getMessage()];
+            error_log("Error al consultar MySQL: ".$e->getMessage());
+            throw $e;
         }
     }
     // funcion para ejecutar transaccion update o add
-    public static function execute($sql,array $param=[],$id){
+    public static function execute($sql,array $param,$id){
         try{
             $db = self::connect();
             $stmt=$db->prepare($sql);

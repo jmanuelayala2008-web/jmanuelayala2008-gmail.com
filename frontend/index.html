@@ -36,10 +36,13 @@
                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Panel principal</p>
                     <h1 class="text-xl font-semibold text-slate-950">Dashboard</h1>
                 </div>
-                <div class="hidden rounded-md bg-slate-100 px-3 py-2 text-sm font-medium text-slate-600 sm:block">
-                    Administracion
+                <div class="flex items-center gap-3">
+                    <span id="authUserName" class="hidden rounded-md bg-slate-100 px-3 py-2 text-sm font-medium text-slate-600" aria-live="polite" hidden></span>
+                    <button id="authButton" type="button" class="rounded-md bg-slate-950 px-4 py-3 text-sm font-medium text-white transition hover:bg-slate-800">Iniciar sesión</button>
                 </div>
             </header>
+
+            <p id="authNotice" class="mx-6 mt-3 text-sm text-red-700" role="status" hidden></p>
 
             <main class="flex-1 p-4 sm:p-6 lg:p-8">
                 <section id="app" class="mx-auto max-w-6xl"></section>
@@ -47,6 +50,6 @@
         </div>
     </div>
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

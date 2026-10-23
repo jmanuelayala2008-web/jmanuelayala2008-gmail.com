@@ -1,6 +1,69 @@
 <?php
 require_once __DIR__ . "/../Models/Users.php";
 class UserController{
+    public function login()
+    {
+        $data = $this->requestData();
+        if ($data === null || !isset($data['username'], $data['password'])
+            || !is_string($data['username']) || !is_string($data['password'])
+            || $data['username'] === '' || $data['password'] === '') {
+            $this->error('Se requieren usuario y contrasena', 400);
+            return;
+        }
+
+        $user = Users::findByUsername($data['username']);
+        if (!$user || (int)$user['estado'] !== 1 || !$this->passwordMatches($data['password'], $user['password_hash'])) {
+            $this->error('Usuario o contrasena incorrectos', 401);
+            return;
+        }
+
+        session_regenerate_id(true);
+        $employeeName = trim(($user['employee_nombre'] ?? '') . ' ' . ($user['employee_apellidos'] ?? ''));
+        $_SESSION['authenticated_user'] = [
+            'id' => (int)$user['id'],
+            'username' => $user['username'],
+            'displayName' => $employeeName !== '' ? $employeeName : $user['username'],
+            'estado' => (int)$user['estado'],
+            'cod_empleado' => $user['cod_empleado'] === null ? null : (int)$user['cod_empleado'],
+        ];
+        echo json_encode([
+            'authenticated' => true,
+            'sessionId' => session_id(),
+            'user' => $_SESSION['authenticated_user'],
+        ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function session()
+    {
+        if (empty($_SESSION['authenticated_user'])) {
+            $this->error('No hay una sesion activa', 401);
+            return;
+        }
+
+        echo json_encode([
+            'authenticated' => true,
+            'user' => $_SESSION['authenticated_user'],
+        ], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function logout()
+    {
+        $_SESSION = [];
+        if (session_status() === PHP_SESSION_ACTIVE && !session_destroy()) {
+            $this->error('No se pudo cerrar la sesion', 500);
+            return;
+        }
+        echo json_encode(['authenticated' => false, 'message' => 'Sesion cerrada']);
+    }
+
+    private function passwordMatches($password, $storedPassword)
+    {
+        if (password_verify($password, $storedPassword)) return true;
+        $passwordInfo = password_get_info($storedPassword);
+        if (empty($passwordInfo['algo'])) return hash_equals($storedPassword, $password);
+        return false;
+    }
+
     public function getAll()
     {
         $user=Users::all();
@@ -15,6 +78,7 @@ class UserController{
             return;
         }
 
+        $data['password_hash'] = password_hash($data['password_hash'], PASSWORD_DEFAULT);
         $id = Users::add($data);
         if ($id) {
             http_response_code(201);
